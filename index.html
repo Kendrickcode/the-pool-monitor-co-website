@@ -32,10 +32,9 @@
     <header class="bg-white shadow-md sticky top-0 z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center space-x-2">
-                <!-- LOGO INTEGRATION: CORRECTED IMAGE SOURCE -->
-                <!-- IMPORTANT: When deploying, ensure 'The_Pool_Monitor_Co_Resized_Transparent.jpg' is in the same folder as this index.html file. -->
-                <!-- INCREASED LOGO SIZE from h-10 to h-16 -->
-                <img src="The_Pool_Monitor_Co_Resized_Transparent.jpg" alt="The Pool Monitor Co. Logo" class="h-16 w-auto">
+                <!-- LOGO INTEGRATION: Uses relative path (must be in the same folder as this HTML file on the server) -->
+                <!-- Adjusted logo height to h-14 for better balance -->
+                <img src="The_Pool_Monitor_Co_Resized_Transparent.jpg" alt="The Pool Monitor Co. Logo" class="h-14 w-auto">
             </a>
             <nav class="hidden md:flex space-x-6 items-center">
                 <a href="#hoas" class="text-gray-600 hover:text-[#0077c2] font-medium transition duration-150">For HOAs</a>
@@ -224,8 +223,8 @@
                 <a href="#" class="hover:text-[#0077c2]">Privacy Policy</a>
                 <a href="#" class="hover:text-[#0077c2]">Terms of Service</a>
                 <a href="#contact-modal" onclick="document.getElementById('contact-modal').classList.remove('hidden')" class="hover:text-[#0077c2]">Support</a>
-                <!-- Admin Login link added back to the footer here for discrete access -->
-                <a href="admin_dashboard.html" class="hover:text-[#0077c2] font-bold">Admin Login</a>
+                <!-- ADMIN LOGIN LINK (DISCREET) -->
+                <a href="admin_dashboard.html" class="hover:text-red-400 font-semibold text-sm">Admin Login</a>
             </div>
         </div>
     </footer>
