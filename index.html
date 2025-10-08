@@ -32,8 +32,9 @@
     <header class="bg-white shadow-md sticky top-0 z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
             <a href="#" class="flex items-center space-x-2">
-                <!-- LOGO INTEGRATION: CORRECTED IMAGE SOURCE to use contentFetchId for accessibility -->
-                <img src="/_content/uploaded:The_Pool_Monitor_Co_Resized_Transparent.jpg-afdda568-ff11-41ad-80ae-310cff0f73f9" alt="The Pool Monitor Co. Logo" class="h-10 w-auto">
+                <!-- LOGO INTEGRATION: CORRECTED IMAGE SOURCE -->
+                <!-- IMPORTANT: When deploying, ensure 'The_Pool_Monitor_Co_Resized_Transparent.jpg' is in the same folder as this index.html file. -->
+                <img src="The_Pool_Monitor_Co_Resized_Transparent.jpg" alt="The Pool Monitor Co. Logo" class="h-10 w-auto">
             </a>
             <nav class="hidden md:flex space-x-6 items-center">
                 <a href="#hoas" class="text-gray-600 hover:text-[#0077c2] font-medium transition duration-150">For HOAs</a>
@@ -178,7 +179,8 @@
                     <button type="submit" class="w-full blue-gradient text-white py-3 rounded-xl font-bold cta-button">
                         Request Staffing Quote
                     </button>
-                    <p id="hoa-message" class="mt-3 text-center text-sm text-green-600 hidden">Thank you! We will be in touch shortly.</p>
+                    <!-- Updated Message Element -->
+                    <p id="hoa-message" class="mt-3 text-center text-sm text-green-600 hidden">Submission message placeholder.</p>
                 </form>
             </div>
 
@@ -203,7 +205,8 @@
                     <button type="submit" class="w-full bg-[#00bcd4] text-white py-3 rounded-xl font-bold hover:bg-[#0097a7] cta-button">
                         Submit Application
                     </button>
-                    <p id="staff-message" class="mt-3 text-center text-sm text-green-600 hidden">Application received! We'll review and contact you shortly.</p>
+                    <!-- Updated Message Element -->
+                    <p id="staff-message" class="mt-3 text-center text-sm text-green-600 hidden">Submission message placeholder.</p>
                 </form>
             </div>
         </div>
@@ -242,32 +245,161 @@
     </div>
 
 
-    <script>
+    <script type="module">
+        // 1. Firebase Imports
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        import { getFirestore, collection, addDoc, serverTimestamp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+
+        // 2. Global Firebase/App Variables
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-poolmonitor-app';
+        // Note: The __firebase_config is a string and must be parsed before use.
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : null;
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
+
+        let app, db, auth;
+        let userId = 'anonymous'; // Default user ID
+        let isAuthReady = false;
+        
+        // Log setup for debugging
+        if (typeof setLogLevel !== 'undefined') { setLogLevel('Debug'); }
+
+
         /**
-         * Simple function to handle form submission for demonstration.
-         * In a real application, this data would be sent to a server-side endpoint or Firebase Firestore.
+         * Initializes Firebase and authenticates the user.
          */
-        function handleFormSubmit(event, formType) {
+        async function initializeFirebase() {
+            if (!firebaseConfig) {
+                console.error("Firebase configuration is missing. Data submission will be logged locally only.");
+                return;
+            }
+
+            try {
+                app = initializeApp(firebaseConfig);
+                auth = getAuth(app);
+                db = getFirestore(app);
+
+                // Authentication: Use onAuthStateChanged to handle initial auth state
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Firebase authenticated. User ID:", userId);
+                        isAuthReady = true;
+                    } else {
+                        // Attempt to use custom token or fall back to anonymous sign-in
+                        try {
+                            if (initialAuthToken) {
+                                await signInWithCustomToken(auth, initialAuthToken);
+                            } else {
+                                await signInAnonymously(auth);
+                            }
+                            userId = auth.currentUser.uid;
+                            console.log("Firebase sign-in complete. User ID:", userId);
+                        } catch(e) {
+                             console.error("Error during sign-in:", e);
+                             // If sign-in fails, fall back to a random ID, although Firestore saves will likely fail without auth
+                             userId = crypto.randomUUID(); 
+                        }
+                        isAuthReady = true;
+                    }
+                });
+            } catch (error) {
+                console.error("Error initializing Firebase:", error);
+            }
+        }
+
+        // Initialize immediately
+        initializeFirebase();
+
+        /**
+         * Handles form submission, saving data to Firebase Firestore.
+         * Note: Function is attached to window to be accessible from inline HTML onsubmit handlers.
+         */
+        window.handleFormSubmit = async function(event, formType) {
             event.preventDefault();
-            const form = event.target;
             
-            // Log the captured data
+            // Get DOM elements for interaction
+            const form = event.target;
+            const submitButton = form.querySelector('button[type="submit"]');
+            
+            let messageElementId = formType === 'HOA Inquiry' ? 'hoa-message' : 'staff-message';
+            const messageElement = document.getElementById(messageElementId);
+
+            // 1. Handle Loading State
+            submitButton.disabled = true;
+            submitButton.innerHTML = `<svg class="animate-spin h-5 w-5 mr-3" viewBox="0 0 24 24"><circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle><path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"></path></svg> Submitting...`;
+            messageElement.textContent = 'Submitting your data...';
+            messageElement.classList.remove('hidden', 'text-green-600', 'text-red-600');
+            messageElement.classList.add('text-gray-600');
+            messageElement.style.display = 'block';
+
+            // 2. Gather Data
             const formData = new FormData(form);
             const data = {};
             formData.forEach((value, key) => data[key] = value);
-            console.log(`${formType} submitted:`, data);
+            
+            const submissionData = {
+                ...data,
+                formType: formType,
+                timestamp: serverTimestamp(),
+                submittedBy: userId,
+                // Include app ID for full traceability
+                appId: appId 
+            };
+            
+            let originalButtonText = formType === 'HOA Inquiry' ? 'Request Staffing Quote' : 'Submit Application';
 
-            // Display success message and reset the form
-            let messageElementId = formType === 'HOA Inquiry' ? 'hoa-message' : 'staff-message';
-            const messageElement = document.getElementById(messageElementId);
-            
-            form.reset();
-            messageElement.classList.remove('hidden');
-            
-            // Hide the message after 5 seconds
-            setTimeout(() => {
-                messageElement.classList.add('hidden');
-            }, 5000);
+            try {
+                // Wait for auth to be ready
+                if (!isAuthReady) {
+                    messageElement.textContent = 'Waiting for security check...';
+                    let checks = 0;
+                    while (!isAuthReady && checks < 50) { // Max 5 seconds wait
+                        await new Promise(resolve => setTimeout(resolve, 100));
+                        checks++;
+                    }
+                    if (!isAuthReady) {
+                        throw new Error("Authentication failed to complete in time.");
+                    }
+                }
+
+                // 3. Determine Collection Path (Private data)
+                // Path: /artifacts/{appId}/users/{userId}/COLLECTION_NAME
+                let collectionName = formType === 'HOA Inquiry' ? 'hoa_inquiries' : 'staff_applications';
+                const collectionPath = `artifacts/${appId}/users/${userId}/${collectionName}`;
+
+                // 4. Save to Firestore
+                await addDoc(collection(db, collectionPath), submissionData);
+                
+                console.log(`${formType} submitted successfully to Firestore at: ${collectionPath}`);
+                
+                // Success UI
+                form.reset();
+                messageElement.textContent = formType === 'HOA Inquiry' ? 
+                    'Quote request sent! We will be in touch shortly.' : 
+                    'Application received! We will review and contact you shortly.';
+                
+                messageElement.classList.remove('text-gray-600');
+                messageElement.classList.add('text-green-600');
+
+            } catch (error) {
+                console.error(`Error submitting ${formType}:`, error);
+                
+                // Error UI
+                messageElement.textContent = `Submission failed: ${error.message}. Please try again.`;
+                messageElement.classList.remove('text-gray-600');
+                messageElement.classList.add('text-red-600');
+
+            } finally {
+                // Restore submit button
+                submitButton.disabled = false;
+                submitButton.innerHTML = originalButtonText;
+                
+                // Hide message after a delay
+                setTimeout(() => {
+                    messageElement.style.display = 'none';
+                }, 7000);
+            }
         }
     </script>
 
