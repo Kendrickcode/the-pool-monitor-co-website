@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Updated Title -->
+    <title>The Pool Monitor Co. - HOA Aquatic Staffing</title>
+    <!-- Load Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Custom font import for a clean, professional look */
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@100..900&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #f7f9fb; /* Very light blue/gray background */
+        }
+        .cta-button {
+            transition: all 0.2s ease-in-out;
+        }
+        .cta-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+        .blue-gradient {
+            background: linear-gradient(to right, #0077c2, #00bfff); /* Deep Blue to Sky Blue */
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Navigation Bar (Updated with new Logo) -->
+    <header class="bg-white shadow-md sticky top-0 z-10">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-4 flex justify-between items-center">
+            <a href="#" class="flex items-center space-x-2">
+                <!-- LOGO INTEGRATION: CORRECTED IMAGE SOURCE to use contentFetchId for accessibility -->
+                <img src="/_content/uploaded:The_Pool_Monitor_Co_Resized_Transparent.jpg-afdda568-ff11-41ad-80ae-310cff0f73f9" alt="The Pool Monitor Co. Logo" class="h-10 w-auto">
+            </a>
+            <nav class="hidden md:flex space-x-6 items-center">
+                <a href="#hoas" class="text-gray-600 hover:text-[#0077c2] font-medium transition duration-150">For HOAs</a>
+                <a href="#staff" class="text-gray-600 hover:text-[#0077c2] font-medium transition duration-150">Join Our Team</a>
+                <button onclick="document.getElementById('contact-modal').classList.remove('hidden')" class="bg-[#0077c2] text-white px-4 py-2 rounded-lg font-semibold hover:bg-[#005a96] cta-button">Contact</button>
+            </nav>
+            <!-- Mobile Menu Button -->
+            <button class="md:hidden text-gray-600 focus:outline-none" onclick="document.getElementById('mobile-menu').classList.toggle('hidden')">
+                <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7" />
+                </svg>
+            </button>
+        </div>
+        <!-- Mobile Menu -->
+        <div id="mobile-menu" class="hidden md:hidden bg-white shadow-lg">
+            <a href="#hoas" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">For HOAs</a>
+            <a href="#staff" class="block px-4 py-2 text-gray-600 hover:bg-gray-100">Join Our Team</a>
+            <button onclick="document.getElementById('contact-modal').classList.remove('hidden')" class="w-full text-left px-4 py-2 bg-[#0077c2] text-white hover:bg-[#005a96]">Contact Us</button>
+        </div>
+    </header>
+
+    <!-- Hero Section (Split CTA Focus) -->
+    <section class="blue-gradient py-16 md:py-24 text-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h1 class="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight mb-4">
+                Pool Staffing. Simplified.
+            </h1>
+            <p class="text-xl sm:text-2xl font-light mb-10 opacity-90">
+                Ensure compliance and safety with certified, on-demand lifeguards and pool monitors.
+            </p>
+
+            <div class="flex flex-col md:flex-row justify-center space-y-4 md:space-y-0 md:space-x-8">
+                <!-- CTA for HOAs/Customers -->
+                <a href="#hoas-form" class="w-full md:w-auto inline-flex items-center justify-center px-8 py-4 border border-transparent text-lg font-bold rounded-xl shadow-2xl text-[#0077c2] bg-white hover:bg-gray-100 cta-button transform scale-105">
+                    Find Certified Staff
+                </a>
+                <!-- CTA for Staff/Applicants -->
+                <a href="#staff-form" class="w-full md:w-auto inline-flex items-center justify-center px-8 py-4 border-2 border-white text-lg font-bold rounded-xl shadow-2xl text-white bg-transparent hover:bg-white hover:text-[#0077c2] cta-button">
+                    Apply to be a Guard
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- HOA Value Proposition Section -->
+    <section id="hoas" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl font-extrabold text-gray-900 text-center mb-12">
+                Why HOAs Trust The Pool Monitor Co.
+            </h2>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                <!-- Feature 1: Compliance -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-full bg-red-100 text-red-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.002 12.002 0 005.143 17.58c.83 2.016 2.213 3.657 3.921 4.887a2 2 0 002.94 0c1.708-1.23 3.091-2.871 3.921-4.887a12.002 12.002 0 001.545-6.046c.725-3.085.086-5.83-1.636-7.398z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Guaranteed Compliance</h3>
+                    <p class="text-gray-600">Every staff member is fully vetted, insured, and certified (CPR, First Aid, Lifeguarding) with automated tracking for expiration dates. Reduce your liability risks instantly.</p>
+                </div>
+
+                <!-- Feature 2: Flexibility & Scale -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-full bg-yellow-100 text-yellow-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" d="M8 7V3m8 4V3m-9 8h.01M9 11h.01M15 11h.01M17 11h.01M3 15h18M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Instant Scheduling</h3>
+                    <p class="text-gray-600">Post a shift request (short-notice or seasonal contract) and watch our platform fill it immediately. Never worry about no-shows or sudden cancellations again.</p>
+                </div>
+
+                <!-- Feature 3: Cost-Effectiveness -->
+                <div class="bg-gray-50 p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300">
+                    <div class="flex items-center justify-center h-12 w-12 rounded-full bg-green-100 text-green-600 mb-4">
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8c-2.485 0-4.5 2.015-4.5 4.5S9.515 17 12 17s4.5-2.015 4.5-4.5S14.485 8 12 8z" />
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 2v2m0 16v2m-6-10H4m16 0h-2M6 6l1.414 1.414m11.172 11.172L17.414 17.414M6 18l1.414-1.414m11.172-11.172L17.414 6.586" />
+                        </svg>
+                    </div>
+                    <h3 class="text-xl font-semibold text-gray-900 mb-2">Simplified Billing</h3>
+                    <p class="text-gray-600">Receive one consolidated monthly invoice. We handle payroll, taxes, and worker liability, eliminating administrative burden for your board or management team.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Staff Recruitment Section -->
+    <section id="staff" class="py-16 md:py-20 bg-[#e0f7fa]">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+            <h2 class="text-3xl font-extrabold text-gray-900 mb-4">
+                Join The Pool Monitor Co. Team: Your Schedule, Your Choice.
+            </h2>
+            <p class="text-xl text-gray-600 mb-10 max-w-3xl mx-auto">
+                We empower certified lifeguards and pool monitors with the best local shifts, competitive pay, and total control over their working calendar.
+            </p>
+
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-6 mb-12">
+                <div class="p-4 bg-white rounded-lg shadow-lg">
+                    <p class="text-4xl font-bold text-[#00bcd4]">100%</p>
+                    <p class="text-gray-600">Flexible Scheduling</p>
+                </div>
+                <div class="p-4 bg-white rounded-lg shadow-lg">
+                    <p class="text-4xl font-bold text-[#00bcd4]">Competitive</p>
+                    <p class="text-gray-600">Hourly Rates</p>
+                </div>
+                <div class="p-4 bg-white rounded-lg shadow-lg">
+                    <p class="text-4xl font-bold text-[#00bcd4]">Weekly</p>
+                    <p class="text-gray-600">Rapid Payments</p>
+                </div>
+            </div>
+
+            <a href="#staff-form" class="inline-flex items-center px-10 py-4 border border-transparent text-lg font-bold rounded-xl shadow-lg text-white bg-[#00bcd4] hover:bg-[#0097a7] cta-button">
+                Get Started Today
+            </a>
+        </div>
+    </section>
+
+    <!-- Dual Form Section (HOA Sign-up and Staff Application) -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-12">
+
+            <!-- HOA Contact/Sign-up Form -->
+            <div id="hoas-form" class="p-8 bg-gray-50 rounded-xl shadow-2xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-2 text-[#0077c2]">
+                    HOA Staffing Inquiry
+                </h3>
+                <form onsubmit="handleFormSubmit(event, 'HOA Inquiry')">
+                    <div class="mb-4">
+                        <label for="hoa-name" class="block text-sm font-medium text-gray-700">Property Name / HOA</label>
+                        <input type="text" id="hoa-name" name="hoa-name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#0077c2] focus:border-[#0077c2]">
+                    </div>
+                    <div class="mb-4">
+                        <label for="hoa-email" class="block text-sm font-medium text-gray-700">Email Address</label>
+                        <input type="email" id="hoa-email" name="hoa-email" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#0077c2] focus:border-[#0077c2]">
+                    </div>
+                    <div class="mb-6">
+                        <label for="hoa-needs" class="block text-sm font-medium text-gray-700">Staffing Needs (e.g., Seasonal Lifeguards, Weekend Monitor)</label>
+                        <textarea id="hoa-needs" name="hoa-needs" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#0077c2] focus:border-[#0077c2]"></textarea>
+                    </div>
+                    <button type="submit" class="w-full blue-gradient text-white py-3 rounded-xl font-bold cta-button">
+                        Request Staffing Quote
+                    </button>
+                    <p id="hoa-message" class="mt-3 text-center text-sm text-green-600 hidden">Thank you! We will be in touch shortly.</p>
+                </form>
+            </div>
+
+            <!-- Staff Application Form -->
+            <div id="staff-form" class="p-8 bg-[#f1f8e9] rounded-xl shadow-2xl">
+                <h3 class="text-2xl font-bold text-gray-900 mb-6 border-b pb-2 text-[#00bcd4]">
+                    Lifeguard / Monitor Application
+                </h3>
+                <form onsubmit="handleFormSubmit(event, 'Staff Application')">
+                    <div class="mb-4">
+                        <label for="staff-name" class="block text-sm font-medium text-gray-700">Full Name</label>
+                        <input type="text" id="staff-name" name="staff-name" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#00bcd4] focus:border-[#00bcd4]">
+                    </div>
+                    <div class="mb-4">
+                        <label for="staff-cert" class="block text-sm font-medium text-gray-700">Primary Certification (e.g., Lifeguard, CPR)</label>
+                        <input type="text" id="staff-cert" name="staff-cert" required class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#00bcd4] focus:border-[#00bcd4]">
+                    </div>
+                    <div class="mb-6">
+                        <label for="staff-avail" class="block text-sm font-medium text-gray-700">Available Days/Hours</label>
+                        <textarea id="staff-avail" name="staff-avail" rows="3" class="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-[#00bcd4] focus:border-[#00bcd4]"></textarea>
+                    </div>
+                    <button type="submit" class="w-full bg-[#00bcd4] text-white py-3 rounded-xl font-bold hover:bg-[#0097a7] cta-button">
+                        Submit Application
+                    </button>
+                    <p id="staff-message" class="mt-3 text-center text-sm text-green-600 hidden">Application received! We'll review and contact you shortly.</p>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col md:flex-row justify-between items-center">
+            <div class="mb-4 md:mb-0">
+                <!-- Updated Footer Name -->
+                <p>&copy; 2025 The Pool Monitor Co. All rights reserved.</p>
+            </div>
+            <div class="flex space-x-6">
+                <a href="#" class="hover:text-[#0077c2]">Privacy Policy</a>
+                <a href="#" class="hover:text-[#0077c2]">Terms of Service</a>
+                <a href="#contact-modal" onclick="document.getElementById('contact-modal').classList.remove('hidden')" class="hover:text-[#0077c2]">Support</a>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Contact Modal (Custom Alert/Message Box) -->
+    <div id="contact-modal" class="fixed inset-0 bg-gray-600 bg-opacity-75 hidden flex items-center justify-center z-50">
+        <div class="bg-white p-6 rounded-xl shadow-2xl w-full max-w-sm m-4">
+            <!-- Updated Modal Title and Contact Info -->
+            <h4 class="text-xl font-bold mb-4 text-[#0077c2]">Contact The Pool Monitor Co.</h4>
+            <p class="text-gray-700 mb-4">
+                For immediate assistance, please email us or call:
+            </p>
+            <!-- UPDATED EMAIL AND PHONE NUMBER HERE -->
+            <p class="font-semibold text-gray-800 mb-2">Email: <a href="mailto:admin@mypoolmonitor.com" class="text-[#0077c2] hover:underline">admin@mypoolmonitor.com</a></p>
+            <p class="font-semibold text-gray-800 mb-4">Phone: <a href="tel:4045378808" class="text-[#0077c2] hover:underline">(404) 537-8808</a></p>
+            <button onclick="document.getElementById('contact-modal').classList.add('hidden')" class="w-full bg-gray-200 text-gray-800 py-2 rounded-lg font-semibold hover:bg-gray-300">
+                Close
+            </button>
+        </div>
+    </div>
+
+
+    <script>
+        /**
+         * Simple function to handle form submission for demonstration.
+         * In a real application, this data would be sent to a server-side endpoint or Firebase Firestore.
+         */
+        function handleFormSubmit(event, formType) {
+            event.preventDefault();
+            const form = event.target;
+            
+            // Log the captured data
+            const formData = new FormData(form);
+            const data = {};
+            formData.forEach((value, key) => data[key] = value);
+            console.log(`${formType} submitted:`, data);
+
+            // Display success message and reset the form
+            let messageElementId = formType === 'HOA Inquiry' ? 'hoa-message' : 'staff-message';
+            const messageElement = document.getElementById(messageElementId);
+            
+            form.reset();
+            messageElement.classList.remove('hidden');
+            
+            // Hide the message after 5 seconds
+            setTimeout(() => {
+                messageElement.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+
+</body>
+</html>
