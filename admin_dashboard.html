@@ -44,7 +44,8 @@
 
 
         <!-- Login Form (Initially Visible) -->
-        <div id="login-container" class="max-w-md mx-auto p-8 bg-white rounded-xl shadow-2xl mt-20 hidden">
+        <!-- FIX: Removed 'hidden' class so the form appears immediately upon page load. -->
+        <div id="login-container" class="max-w-md mx-auto p-8 bg-white rounded-xl shadow-2xl mt-20">
             <h2 class="text-2xl font-bold text-gray-900 mb-6 text-center">Admin Access Required</h2>
             <form id="login-form">
                 <div class="mb-4">
@@ -182,9 +183,10 @@
         }
 
         function showLogin() {
-            loginContainer.classList.remove('hidden');
+            // Note: Login container is already visible by default due to HTML change
             dashboardContent.classList.add('hidden');
             dashboardHeader.classList.add('hidden');
+            loginContainer.classList.remove('hidden'); // Ensure it's not hidden if logged out
             loginMessage.textContent = '';
             loginMessage.classList.add('hidden');
             if (loginForm) loginForm.reset();
@@ -346,3 +348,4 @@
 
 </body>
 </html>
+
